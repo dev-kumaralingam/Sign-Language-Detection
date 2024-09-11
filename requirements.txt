@@ -1,0 +1,8 @@
+Flask
+tensorflow
+gtts
+googletrans
+opencv-python
+numpy
+
+

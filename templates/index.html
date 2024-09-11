@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Language Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Sign Language Detection</h1>
+        <div class="video-container">
+            <img id="video-feed" src="{{ url_for('video_feed') }}" alt="Video Feed">
+        </div>
+        <div class="controls">
+            <h3>Recognized Sign: <span id="recognized-sign">None</span></h3>
+            <h3>Translation: <span id="translated-sign">None</span></h3>
+            <select id="language" onchange="updateLanguage()">
+                <option value="en">English</option>
+                <option value="es">Spanish</option>
+                <option value="fr">French</option>
+                <option value="de">German</option>
+                <option value="it">Italian</option>
+                <option value="ja">Japanese</option>
+                <option value="ko">Korean</option>
+                <option value="zh-cn">Chinese (Simplified)</option>
+            </select>
+        </div>
+        <audio id="audio-player" style="display: none;"></audio>
+    </div>
+    <script>
+        let currentSign = '';
+        let selectedLanguage = 'en';
+
+        function updateLanguage() {
+            selectedLanguage = document.getElementById('language').value;
+        }
+
+        async function fetchSignAndAudio() {
+            const response = await fetch(`/get_sign_and_audio?lang=${selectedLanguage}`);
+            const data = await response.json();
+
+            if (data.sign && data.sign !== currentSign) {
+                currentSign = data.sign;
+                document.getElementById('recognized-sign').textContent = data.sign;
+                document.getElementById('translated-sign').textContent = data.translation;
+
+                const audioPlayer = document.getElementById('audio-player');
+                audioPlayer.src = 'data:audio/mp3;base64,' + data.audio;
+                audioPlayer.play();
+            }
+        }
+
+        // Poll for recognized signs and play audio
+        setInterval(fetchSignAndAudio, 1000);
+    </script>
+</body>
+</html>

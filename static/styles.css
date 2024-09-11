@@ -1,0 +1,59 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.video-container {
+    margin: 20px auto;
+    width: 640px;
+    border: 2px solid #333;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+#video-feed {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.controls {
+    margin-top: 20px;
+}
+
+h3 {
+    color: #555;
+    margin: 10px 0;
+}
+
+select {
+    margin: 10px;
+    padding: 8px 15px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#recognized-sign, #translated-sign {
+    font-weight: bold;
+    color: #4CAF50;
+}
